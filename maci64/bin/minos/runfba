@@ -8,11 +8,11 @@
 
  set TOP = .   # ROOT OF THE QUADLP INSTALLATION
 
- #if ( $# < 3 ) then
-#    echo "  Script for running minos on a *.txt file in $TOP/data/FBA"
-#    echo "./runfba  solveLP TMA_ME lp1   runs  solveLP with TMA_ME.txt, lp1.spc"
-#    exit
-# endif
+ if ( $# < 3 ) then
+    echo "  Script for running minos on a *.txt file in $TOP/data/FBA"
+    echo "./runfba  solveLP TMA_ME lp1   runs  solveLP with TMA_ME.txt, lp1.spc"
+    exit
+ endif
 
  set SOLVER = $1
  set PROB   = $2
