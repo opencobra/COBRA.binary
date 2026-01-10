@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# runfba
+# If necessary, make this file executable via chmod +x runfba.
+# Note that file names of the form fort.* may be machine-dependent.
+#
+# 29 Apr 2014: runfba made from runmps for quadLP.
+# 04 Nov 2014: Save fort.81 as PROB.sol.
+# 10 Jan 2026: bash version Ronan
+
+TOP=".."   # ROOT OF THE QUADLP INSTALLATION
+
+# Check arguments
+if [ "$#" -lt 3 ]; then
+  echo "  Script for running minos on a *.txt file in $TOP/data/FBA"
+  echo "./runfba  solveLP TMA_ME lp1   runs  solveLP with TMA_ME.txt, lp1.spc"
+  exit 1
+fi
+
+SOLVER="$1"
+PROB="$2"
+SPECS="$3"
+FBA="$TOP/data/FBA/$PROB"
+
+# Check input file
+if [ ! -e "$FBA.txt" ]; then
+  echo "Error: $FBA.txt not found"
+  exit 1
+fi
+
+# Prepare fort.* files
+cp -p   "$SPECS.spc"  fort.4
+cp -p   "$FBA.txt"    fort.10
+cp -fp  "$PROB.basis" fort.11 2>/dev/null || true
+
+ls -l "${PROB}"*
+
+# Run the specified executable
+echo "  Running $TOP/bin/$SOLVER"
+"$TOP/bin/$SOLVER"
+
+# Collect outputs
+cp -fp fort.9  "$PROB.out"
+cp -fp fort.11 "$PROB.basis"     2>/dev/null || true
+cp -fp fort.12 "$PROB.newbasis"  2>/dev/null || true
+cp -fp fort.81 "$PROB.sol"       2>/dev/null || true
+
+# Cleanup
+rm -f fort.4 fort.10 fort.11
+rm -f fort.9 fort.12 fort.81 2>/dev/null || true
+
