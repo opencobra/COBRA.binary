@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
-# qrunfba
-# If necessary, make this file executable via chmod +x qrunfba.
+# runfba (bash version)
+# If necessary, make this file executable via: chmod +x runfba
 # Note that file names of the form fort.* may be machine-dependent.
 #
 # 29 Apr 2014: qrunfba made from runfba for quadLP.
 # 04 Nov 2014: Save fort.81 as PROB.sol.
 
-TOP=".."   # ROOT OF THE QUADLP INSTALLATION
+set -euo pipefail
 
-# Check arguments
-if [ "$#" -lt 3 ]; then
+TOP=".."
+# ROOT OF THE QUADLP INSTALLATION
+
+if [[ $# -lt 3 ]]; then
   echo "  Script for running minos on a *.txt file in $TOP/data/FBA"
   echo "./qrunfba  qsolveLP TMA_ME lp2   runs  qsolveLP with TMA_ME.txt, lp2.spc"
   exit 1
@@ -20,27 +22,38 @@ PROB="$2"
 SPECS="$3"
 FBA="$TOP/data/FBA/$PROB"
 
-# Check input file
-if [ ! -e "$FBA.txt" ]; then
-  echo "Error: $FBA.txt not found"
+if [[ ! -e "${FBA}.txt" ]]; then
+  echo "Error: ${FBA}.txt  not found"
   exit 1
 fi
 
-# Prepare fort.* files
-cp -p   "$SPECS.spc"  fort.4
-cp -p   "$FBA.txt"    fort.10
-cp -fp  "$PROB.basis" fort.11 2>/dev/null || true
+# Copy inputs into fort.* files (mimics tcsh \cp behavior)
+cp -p  "${SPECS}.spc" "fort.4"
+cp -p  "${FBA}.txt"   "fort.10"
 
-ls -l "${PROB}"*
+# Optional basis file copy; suppress errors/output if missing
+cp -fp "${PROB}.basis" "fort.11" >/dev/null 2>&1 || true
+
+# List matching files (avoid brace-expansion differences)
+ls -l "${PROB}"* 2>/dev/null || true
 
 # Run the specified executable
 echo "  Running $TOP/bin/$SOLVER"
 "$TOP/bin/$SOLVER"
 
-# Collect outputs (q-prefixed)
-cp -fp fort.9  "q${PROB}.out"
-cp -fp fort.11 "q${PROB}.basis"       2>/dev/null || true
-cp -fp fort.12 "q${PROB}.newbasis"    2>/dev/null || true
-cp -fp fort.13 "q${PROB}.finalbasis"  2>/dev/null || true
-cp -fp fort.
+# Save outputs (suppress errors/output if files don't exist)
+cp -fp "fort.9"  "q${PROB}.out" 2>/dev/null || true
+cp -fp "fort.11" "q${PROB}.basis"      >/dev/null 2>&1 || true
+cp -fp "fort.12" "q${PROB}.newbasis"   >/dev/null 2>&1 || true
+cp -fp "fort.13" "q${PROB}.finalbasis" >/dev/null 2>&1 || true
+cp -fp "fort.81" "q${PROB}.sol"        >/dev/null 2>&1 || true
+
+# Cleanup (suppress errors/output where tcsh did)
+rm -f "fort.4"
+rm -f "fort.9"  >/dev/null 2>&1 || true
+rm -f "fort.10"
+rm -f "fort.11" >/dev/null 2>&1 || true
+rm -f "fort.12" >/dev/null 2>&1 || true
+rm -f "fort.13" >/dev/null 2>&1 || true
+rm -f "fort.81" >/dev/null 2>&1 || true
 
