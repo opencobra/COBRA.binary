@@ -48,10 +48,10 @@ cp -fp "fort.12" "${PROB}.newbasis" >/dev/null 2>&1 || true
 cp -fp "fort.81" "${PROB}.sol"      >/dev/null 2>&1 || true
 
 # Cleanup (suppress errors/output where tcsh did)
-rm -f "fort.4"
-rm -f "fort.9"  >/dev/null 2>&1 || true
-rm -f "fort.10"
-rm -f "fort.11" >/dev/null 2>&1 || true
-rm -f "fort.12" >/dev/null 2>&1 || true
-rm -f "fort.81" >/dev/null 2>&1 || true
+#rm -f "fort.4"
+#rm -f "fort.9"  >/dev/null 2>&1 || true
+#rm -f "fort.10"
+#rm -f "fort.11" >/dev/null 2>&1 || true
+#rm -f "fort.12" >/dev/null 2>&1 || true
+#rm -f "fort.81" >/dev/null 2>&1 || true
 
