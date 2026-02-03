@@ -1,0 +1,149 @@
+May 30,2024       lrslib linux binaries           v7.3   
+
+http://cgm.cs.mcgill.ca/~avis/C/lrs.html
+
+These binaries are intended for linux users with a fairly standard
+setup. 
+
+
+1. lrs uses limited multithreading and hybrid arithmetic is recommended for most 
+   small or medium size applications.
+   Arithmetic is 64bit/128bit/GMP(using mini-gmp)
+
+2. Timing and interrupts are not supported.
+
+3. lrsgmp uses GMP(mini-gmp) arithmetic only and may be much slower.
+
+4. lrsnash computes Nash equilibria of 2-person games
+
+5. Input files should be plain text files, so be careful about preparing them on text editors
+   that have hidden formatting features. vim.exe is supplied to produce plaintext inputs.
+
+6. For the full package including full GMP support and 
+   the OpenMPI mplrs code download from
+   https://cgm.cs.mcgill.ca/~avis/C/lrslib/archive/
+
+-------------------------------------------------------------------------------------
+
+Example 1: hello world 
+
+% lrs cube.ine
+lrs:lrslib_v.7.3_2024.5.30(64bit,lrslong.h,hybrid_arithmetic)
+*Input taken from  cube.ine
+cube
+*starting 3 threads
+
+V-representation
+begin
+***** 4 rational
+ 1  1  1  1 
+ 1  0  1  1 
+ 1  1  1  0 
+ 1  1  0  1 
+ 1  0  1  0 
+ 1  0  0  1 
+ 1  1  0  0 
+ 1  0  0  0 
+end
+*Totals: vertices=8 rays=0 bases=8 integer_vertices=8  max_vertex_depth=3
+*lrs:lrslib_v.7.3_2024.5.30(64bit,lrslong.h,hybrid_arithmetic)
+*0.000u 0.000s 1120Kb 0 flts 0 swaps 0 blks-in 0 blks-out 
+*Elapsed time: 0 seconds
+
+
+---------------------------------------------------------------------------
+Example 2: Illustrates hybrid arithmetic
+
+% plrs mp5.ext
+lrs:lrslib_v.7.3_2024.5.30(64bit,lrslong.h,hybrid_arithmetic)
+*Input taken from  mp5.ext
+mp5
+*volume
+*starting 8 threads
+
+H-representation
+begin
+***** 11 rational
+ 0  0  0  0  0  0  0  0  1 -1  1
+ 0  0  0  0  0  0  1 -1  0  0  1
+*lrs:overflow possible: restarting with 128 bit arithmetic
+plrs.exe:lrslib_v.7.3_2023.12.7(128bit,lrslong.h,hybrid_arithmetic)
+*Input taken from  lrs_restart9lVK7d
+mp5
+*volume
+*starting 8 threads
+
+H-representation
+begin
+***** 11 rational
+ 0  0  0  0  0  0  0  0  1 -1  1
+ 0  0  0  0  0  0  1 -1  0  0  1
+ 0  0 -1  1  0  0  0  0  1  0  0
+ 0  0  0  1 -1  0  0  0  0  0  1
+ 2  0 -1  0 -1  0  0  0  0 -1  0
+ 2  0  0  0  0 -1  0 -1  0 -1  0
+ 0  0  0  0  0  1  0  1  0 -1  0
+ 0  0  0  0  0 -1  1  0  1  0  0
+ 0  0  0  0  0  0 -1  1  0  0  1
+ 0  1  0  1  0  0 -1  0  0  0  0
+ 0  0  0  0  0  0  0  0 -1  1  1
+ 2 -1  0 -1  0  0 -1  0  0  0  0
+ 0 -1  0  1  0  0  1  0  0  0  0
+ 2 -1  0  0 -1  0  0 -1  0  0  0
+ 2  0  0  0  0  0 -1 -1  0  0 -1
+ 0  0  1  1  0  0  0  0 -1  0  0
+ 0  1  1  0  0 -1  0  0  0  0  0
+ 0  0  0  0  0  1 -1  0  1  0  0
+ 0  0  0  0  0  1  1  0 -1  0  0
+ 0  0 -1  0  1  0  0  0  0  1  0
+ 0  0  0  0  0 -1  0  1  0  1  0
+ 0  1  0  0  1  0  0 -1  0  0  0
+ 0 -1  1  0  0  1  0  0  0  0  0
+ 0  0  0  1  1  0  0  0  0  0 -1
+ 0  0  0 -1  1  0  0  0  0  0  1
+ 0  1  0 -1  0  0  1  0  0  0  0
+ 0  1  0  0 -1  0  0  1  0  0  0
+ 0  0  1  0 -1  0  0  0  0  1  0
+ 0 -1  0  0  1  0  0  1  0  0  0
+ 0  0  1  0  1  0  0  0  0 -1  0
+ 0  0  0  0  0  0  1  1  0  0 -1
+ 2  0  0  0  0  0  0  0 -1 -1 -1
+ 0  0  0  0  0  1  0 -1  0  1  0
+ 2  0  0  0  0 -1 -1  0 -1  0  0
+ 0  0  1 -1  0  0  0  0  1  0  0
+ 0  1 -1  0  0  1  0  0  0  0  0
+ 2 -1 -1  0  0 -1  0  0  0  0  0
+ 0  0  0  0  0  0  0  0  1  1 -1
+ 2  0  0 -1 -1  0  0  0  0  0 -1
+ 2  0 -1 -1  0  0  0  0 -1  0  0
+end
+*Volume=4/1701
+*Totals: facets=40 bases=14108 max_facet_depth=12
+
+
+*lrs:lrslib_v.7.3_2024.5.30(128bit,lrslong.h,hybrid_arithmetic)
+*0.281u 0.109s 2276Kb 0 flts 0 swaps 0 blks-in 0 blks-out 
+*Elapsed time: 0 seconds
+
+--------------------------------------------------------------
+3. Compute Nash Equilibria of game
+
+cgm-compute% lrsnash game
+
+*lrsnash:lrslib_v.7.3_2024.5.30(64bit,lrsgmp.h,mini-gmp)
+2  1/3  2/3  4 
+1  2/3  1/3  0  2/3 
+
+2  2/3  1/3  3 
+1  0  1/3  2/3  8/3 
+
+2  1  0  3 
+1  0  0  1  4 
+
+*Number of equilibria found: 3
+*Player 1: vertices=5 bases=5 pivots=8
+*Player 2: vertices=3 bases=1 pivots=8
+
+*lrsnash::lrslib_v.7.3_2024.5.30(64bit,lrsgmp.h,mini-gmp)
+*0.000u 0.003s 1664Kb 1 flts 0 swaps 544 blks-in 0 blks-out 
+
