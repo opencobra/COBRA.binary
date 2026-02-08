@@ -1,12 +1,12 @@
 BEGIN lpQ2.spc   for DQQ procedure step Q2
-   Rows                   1000000
-   Columns                1000000
-   Elements               2500000
-
+   Rows                    150000
+   Columns                 150000
+   Elements               2000000
+ 
    MPS file                    10
    Old basis file              12
    New basis file              13
-   Save Frequency          500000
+   Save Frequency          500000 
 
    Scale option                 0
    Feasibility tol           1e-15
@@ -22,5 +22,5 @@ BEGIN lpQ2.spc   for DQQ procedure step Q2
    Print level                 11
    Solution                    No
    Solution file                9
-   Report file                 81  * Dump final Basis
+*  Report file                 92  * Dump final Basis
 End

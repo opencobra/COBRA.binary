@@ -1,12 +1,12 @@
 BEGIN lpD.spc   for DQQ procedure step D
-   Rows                   1000000
-   Columns                1000000
-   Elements               2500000
-
+   Rows                    150000
+   Columns                 150000
+   Elements               2000000
+ 
    MPS file                    10
    Old basis file               0
    New basis file              11
-   Save Frequency          500000
+   Save Frequency          500000 
 
    Scale option                 2
    Feasibility tol           1e-7

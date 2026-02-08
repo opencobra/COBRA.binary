@@ -1,8 +1,8 @@
 BEGIN lpQ1.spc   for DQQ procedure step Q1
-   Rows                   1000000
-   Columns                1000000
-   Elements               2500000
-
+   Rows                    150000
+   Columns                 150000
+   Elements               2000000
+ 
    MPS file                    10
    Old basis file              11
    New basis file              12
@@ -20,7 +20,7 @@ BEGIN lpQ1.spc   for DQQ procedure step Q1
 *  LU Singularity tol       1e-15  * Default = 3.63e-22
 
    Print level                 11
-   Solution                   Yes
-   Solution file                9
+   Solution                    No
+*  Solution file                9
 *  Report file                 92  * Dump final Basis
 End
