@@ -30,11 +30,11 @@
  fi
 
  PROB=$1
- MPS=../MPS
+ MPS=./MPS
 
  if [ ! -e $MPS/$PROB.mps ]
  then
-    echo "Error: ../MPS/$PROB.mps  not found"
+    echo "Error: MPS/$PROB.mps  not found"
     exit 1
  fi
 
@@ -81,3 +81,10 @@
  ls -l results/$PROB.*
  echo "End of ./run1DQQ $PROB"
  echo " "
+
+#=================
+# Compatibility with solveCobraLP.m (Ronan 2026)
+#=================
+ \cp -fp fort.81 $PROB.sol       >& /dev/null
+
+

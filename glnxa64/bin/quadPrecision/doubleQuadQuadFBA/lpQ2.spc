@@ -20,7 +20,11 @@ BEGIN lpQ2.spc   for DQQ procedure step Q2
 *  LU Singularity tol       1e-12  * Default = 3.25e-11
 
    Print level                 11
-   Solution                    No
-   Solution file                9
+*   Solution                    No  * Ronan commented out 2026
+*   Solution file                9  * Ronan commented out 2026
 *  Report file                 92  * Dump final Basis
+
+   Report file                 81  * Export solution to file fort.81
+   Solution                    No
+   Solution file                9  * Print solution in E format
 End
